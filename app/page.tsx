@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ArrowRight, Download, Globe, Github, Linkedin, Mail, MapPin, Phone, Sun, Moon, ExternalLink, Sparkles } from 'lucide-react'
+import { ArrowRight, Download, Globe, Github, Linkedin, Mail, MapPin, Phone, Sun, Moon, ExternalLink, Sparkles,Instagram } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 // Importa os dados da pasta `data/`. Edite esses ficheiros para alterar o conteúdo
 // do seu portfólio sem precisar mexer no código dos componentes. Veja
@@ -65,6 +65,7 @@ function Socials({ className = '' }: { className?: string }) {
     <div className={`flex items-center gap-3 ${className}`}>
       <a aria-label="GitHub" className="opacity-80 hover:opacity-100" href={SITE.socials.github} target="_blank" rel="noreferrer"><Github className="h-5 w-5" /></a>
       <a aria-label="LinkedIn" className="opacity-80 hover:opacity-100" href={SITE.socials.linkedin} target="_blank" rel="noreferrer"><Linkedin className="h-5 w-5" /></a>
+      <a aria-label="Instagram" className="opacity-80 hover:opacity-100" href={SITE.socials.instagram} target="_blank" rel="noreferrer"><Instagram className="h-5 w-5" /></a>
       <a aria-label="Website" className="opacity-80 hover:opacity-100" href={SITE.website} target="_blank" rel="noreferrer"><Globe className="h-5 w-5" /></a>
     </div>
   )
@@ -305,14 +306,16 @@ export default function Page() {
       <Section id="sobre" title="Sobre mim" description="Rápido resumo de quem eu sou e como posso ajudar o seu negócio.">
         <div className="prose prose-invert">
           <p>
-            Engenheiro de software full-stack orientado a resultado: transformo ideias em produtos,
-            com foco em performance, qualidade e entrega contínua. Trabalho guiado por métricas
-            (conversão, retenção e velocidade) e opero em ciclos curtos para acelerar impacto.
+            Engenheiro de software full-stack. Entrego páginas e sistemas com IA e
+            análise de dados sob medida — simples, direto e com foco em resultado.
+            Trabalho orientado por métricas (conversão, retenção, performance) e ciclos
+            curtos de entrega.
           </p>
           <p>
-            Formação em andamento: estudante na <strong>Brigham Young University (BYU)</strong> e cursando
+            Formação em andamento: <strong>BYU (Brigham Young University)</strong> e
             <strong> MBA em Engenharia de Software com IA</strong> pela <strong>Full Cycle</strong>.
-            Baseado em <strong>{SITE.location}</strong>, atuo remotamente com clientes de diferentes mercados.
+            Baseado em <strong>{SITE.location}</strong>, atuo remotamente com empresas de
+            diferentes mercados.
           </p>
         </div>
       </Section>

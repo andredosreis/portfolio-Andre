@@ -15,7 +15,7 @@ export const SITE = {
   // Cargo ou título profissional
   role: 'Full‑Stack Developer',
   // Frase de efeito que resume o seu propósito
-  tagline: 'Crio produtos digitais rápidos, acessíveis e orientados a resultados.',
+  tagline: 'Soluções web com IA e análise de dados sob medida para acelerar conversão e eficiência.',
   // Cidade e país onde está baseado (pode ser remoto)
   location: 'Batalha, Portugal',
   // E‑mail profissional. Usado no formulário de contacto e link mailto
@@ -23,11 +23,12 @@ export const SITE = {
   // Telefone para contacto (inclua código do país)
   phone: '+351 9124-62033',
   // URL do seu site pessoal ou domínio onde o portfólio será hospedado
-  website: 'https://portfolio-exemplo.dev',
+  website: 'https://portfolio-andre-phi.vercel.app/',
   // Links para redes sociais. Adicione mais campos (ex.: twitter) conforme desejar
   socials: {
     github: 'https://github.com/andredosreis',
     linkedin: 'https://www.linkedin.com/in/andredosreispro',
+    instagram: 'https://instagram.com/andredosreispro' 
   },
   // Palavras-chave para SEO. Inclua tecnologias, cargo, nicho, etc.
   keywords: [
