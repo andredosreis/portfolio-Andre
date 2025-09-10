@@ -78,6 +78,7 @@ function Header() {
     { href: '/futuros', label: 'Projetos Em Desenovimento' },
    //  { href: '/faculdade', label: 'Projetos Faculdade' },
     { href: '#experiencia', label: 'Experiência' },
+    //{href: '#parceiros', label: 'Parceiros' },
     { href: '#skills', label: 'Skills' },
     { href: '#contato', label: 'Contacto' },
    
