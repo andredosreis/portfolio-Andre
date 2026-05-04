@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ea580c"/>
+      <stop offset="100%" style="stop-color:#431407"/>
+    </linearGradient>
+    <linearGradient id="layer-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Layers (reverse-engineering stack visualization) -->
+  <!-- Layer 4 — bottom -->
+  <rect x="510" y="390" width="380" height="44" rx="8" fill="url(#layer-grad)" stroke="#fb923c" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="530" y="417" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" fill-opacity="0.7">PostgreSQL · RLS · Row Level Security</text>
+  <rect x="855" y="399" width="20" height="24" rx="4" fill="#fb923c" fill-opacity="0.3"/>
+  <text x="865" y="415" font-family="system-ui, sans-serif" font-size="14" fill="#fb923c" text-anchor="middle">🔒</text>
+
+  <!-- Layer 3 -->
+  <rect x="510" y="336" width="380" height="44" rx="8" fill="url(#layer-grad)" stroke="#fb923c" stroke-opacity="0.35" stroke-width="1"/>
+  <text x="530" y="363" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" fill-opacity="0.7">Supabase Auth · Edge Functions · Storage</text>
+
+  <!-- Layer 2 -->
+  <rect x="510" y="282" width="380" height="44" rx="8" fill="url(#layer-grad)" stroke="#fb923c" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="530" y="309" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" fill-opacity="0.85">React · TypeScript · PWA · Vite</text>
+
+  <!-- Layer 1 — top -->
+  <rect x="510" y="228" width="380" height="44" rx="8" fill="#ea580c" fill-opacity="0.3" stroke="#fb923c" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="530" y="255" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Hotmart · Kiwify · Monetizze · Eduzz</text>
+
+  <!-- Arrows between layers (reverse direction = reverse engineering) -->
+  <g stroke="#fb923c" stroke-opacity="0.5" stroke-width="1.5" fill="#fb923c" fill-opacity="0.5">
+    <line x1="700" y1="282" x2="700" y2="272"/>
+    <polygon points="695,272 700,262 705,272"/>
+    <line x1="700" y1="336" x2="700" y2="326"/>
+    <polygon points="695,326 700,316 705,326"/>
+    <line x1="700" y1="390" x2="700" y2="380"/>
+    <polygon points="695,380 700,370 705,380"/>
+  </g>
+
+  <!-- Layer label -->
+  <text x="500" y="225" font-family="system-ui, sans-serif" font-size="10" fill="#fb923c" fill-opacity="0.7" text-anchor="end">Camadas</text>
+  <text x="500" y="258" font-family="system-ui, sans-serif" font-size="10" fill="#fb923c" fill-opacity="0.7" text-anchor="end">mapeadas</text>
+
+  <!-- Webhook flow pill -->
+  <rect x="510" y="455" width="380" height="36" rx="10" fill="#fb923c" fill-opacity="0.12" stroke="#fb923c" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="700" y="478" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" fill-opacity="0.8" text-anchor="middle">Webhook → Acesso automático pós-compra</text>
+
+  <!-- Left: Title block -->
+  <text x="80" y="160" font-family="system-ui, sans-serif" font-size="48" font-weight="800" fill="#ffffff" letter-spacing="-1">APP XPRO</text>
+  <text x="80" y="200" font-family="system-ui, sans-serif" font-size="18" fill="#ffffff" fill-opacity="0.75">Engenharia Reversa · SaaS</text>
+
+  <!-- Tags -->
+  <rect x="80" y="228" width="132" height="26" rx="13" fill="#ffffff" fill-opacity="0.15"/>
+  <text x="146" y="246" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Eng. Reversa</text>
+
+  <rect x="222" y="228" width="80" height="26" rx="13" fill="#ffffff" fill-opacity="0.15"/>
+  <text x="262" y="246" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Supabase</text>
+
+  <rect x="312" y="228" width="44" height="26" rx="13" fill="#ffffff" fill-opacity="0.15"/>
+  <text x="334" y="246" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">RLS</text>
+
+  <!-- Findings card -->
+  <rect x="80" y="280" width="400" height="140" rx="12" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="100" y="308" font-family="system-ui, sans-serif" font-size="11" fill="#ffffff" fill-opacity="0.5">MAPEAMENTO</text>
+  <text x="100" y="330" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff">→ Arquitectura de segurança end-to-end</text>
+  <text x="100" y="352" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff">→ Isolamento multi-tenant por RLS</text>
+  <text x="100" y="374" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff">→ Fluxo completo: compra → acesso</text>
+  <text x="100" y="396" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff">→ Entrega de conteúdo como PWA documentada</text>
+
+  <!-- Bottom label -->
+  <text x="80" y="505" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" fill-opacity="0.4">Plataforma multi-tenant para infoprodutores</text>
+</svg>

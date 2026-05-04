@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="node-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bg)"/>
+
+  <!-- Network edges -->
+  <g stroke="#a78bfa" stroke-opacity="0.3" stroke-width="1.5" fill="none">
+    <!-- master → agents -->
+    <line x1="660" y1="200" x2="560" y2="310"/>
+    <line x1="660" y1="200" x2="680" y2="310"/>
+    <line x1="660" y1="200" x2="790" y2="290"/>
+    <line x1="660" y1="200" x2="620" y2="390"/>
+    <!-- cross connections -->
+    <line x1="560" y1="310" x2="680" y2="310" stroke-dasharray="4 4"/>
+    <line x1="680" y1="310" x2="790" y2="290" stroke-dasharray="4 4"/>
+  </g>
+
+  <!-- Master node -->
+  <circle cx="660" cy="200" r="38" fill="url(#node-grad)" stroke="#a78bfa" stroke-opacity="0.7" stroke-width="2"/>
+  <text x="660" y="195" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">hypper</text>
+  <text x="660" y="210" font-family="system-ui, sans-serif" font-size="10" fill="#c4b5fd" text-anchor="middle">master</text>
+
+  <!-- Agent nodes -->
+  <circle cx="560" cy="310" r="28" fill="url(#node-grad)" stroke="#a78bfa" stroke-opacity="0.5" stroke-width="1.5"/>
+  <text x="560" y="314" font-family="system-ui, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">@dev</text>
+
+  <circle cx="680" cy="316" r="28" fill="url(#node-grad)" stroke="#a78bfa" stroke-opacity="0.5" stroke-width="1.5"/>
+  <text x="680" y="320" font-family="system-ui, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">@qa</text>
+
+  <circle cx="790" cy="294" r="28" fill="url(#node-grad)" stroke="#a78bfa" stroke-opacity="0.5" stroke-width="1.5"/>
+  <text x="790" y="291" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">@dev</text>
+  <text x="790" y="304" font-family="system-ui, sans-serif" font-size="10" fill="#c4b5fd" text-anchor="middle">ops</text>
+
+  <circle cx="622" cy="400" r="28" fill="#16a34a" fill-opacity="0.2" stroke="#4ade80" stroke-opacity="0.6" stroke-width="1.5"/>
+  <text x="622" y="397" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">@archi</text>
+  <text x="622" y="410" font-family="system-ui, sans-serif" font-size="10" fill="#86efac" text-anchor="middle">tect</text>
+
+  <!-- Quality gate badge -->
+  <rect x="720" y="365" width="110" height="30" rx="8" fill="#4ade80" fill-opacity="0.15" stroke="#4ade80" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="775" y="385" font-family="system-ui, sans-serif" font-size="11" fill="#86efac" text-anchor="middle">✓ quality gate</text>
+
+  <!-- Magnifier (analysis) -->
+  <circle cx="840" cy="140" r="32" fill="none" stroke="#c4b5fd" stroke-opacity="0.4" stroke-width="2.5"/>
+  <line x1="862" y1="162" x2="878" y2="178" stroke="#c4b5fd" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+  <text x="840" y="137" font-family="monospace" font-size="12" fill="#c4b5fd" fill-opacity="0.8" text-anchor="middle">&lt;/&gt;</text>
+  <text x="840" y="152" font-family="monospace" font-size="12" fill="#c4b5fd" fill-opacity="0.8" text-anchor="middle">{ }</text>
+
+  <!-- Left: Title block -->
+  <text x="80" y="170" font-family="system-ui, sans-serif" font-size="52" font-weight="800" fill="#ffffff" letter-spacing="-1">HypeFlow</text>
+  <text x="80" y="210" font-family="system-ui, sans-serif" font-size="18" fill="#ffffff" fill-opacity="0.75">Análise de Sistema</text>
+
+  <!-- Tags -->
+  <rect x="80" y="240" width="108" height="26" rx="13" fill="#ffffff" fill-opacity="0.15"/>
+  <text x="134" y="258" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Code Review</text>
+
+  <rect x="198" y="240" width="90" height="26" rx="13" fill="#ffffff" fill-opacity="0.15"/>
+  <text x="243" y="258" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Agentes IA</text>
+
+  <rect x="298" y="240" width="80" height="26" rx="13" fill="#ffffff" fill-opacity="0.15"/>
+  <text x="338" y="258" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Turborepo</text>
+
+  <!-- Info card -->
+  <rect x="80" y="300" width="400" height="110" rx="12" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="100" y="330" font-family="system-ui, sans-serif" font-size="11" fill="#ffffff" fill-opacity="0.5">ANÁLISE</text>
+  <text x="100" y="352" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff">→ Monorepo Turborepo mapeado</text>
+  <text x="100" y="372" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff">→ Cadeia de 5 agentes especializados</text>
+  <text x="100" y="392" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff">→ Padrões, acoplamentos e riscos identificados</text>
+
+  <!-- Stack -->
+  <rect x="80" y="430" width="440" height="36" rx="10" fill="#ffffff" fill-opacity="0.07"/>
+  <text x="100" y="453" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" fill-opacity="0.6">Next.js 14 · tRPC 11 · Supabase · TypeScript · Turborepo</text>
+
+  <!-- Bottom label -->
+  <text x="80" y="505" font-family="system-ui, sans-serif" font-size="12" fill="#ffffff" fill-opacity="0.4">Sistema em produção com dados reais de clientes</text>
+</svg>

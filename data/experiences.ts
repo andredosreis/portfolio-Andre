@@ -1,38 +1,7 @@
-/*
- * Lista de experiências profissionais e projetos pessoais.
- *
- * Cada objeto representa uma linha do tempo com:
- *   - company: nome da empresa ou projeto.
- *   - role: cargo ou função desempenhada.
- *   - period: intervalo de tempo (ex.: '2023 — hoje').
- *   - location: cidade/país ou remoto.
- *   - bullets: lista de responsabilidades, conquistas ou highlights. Cada item
- *              aparece como bullet na timeline.
- *
- * Adicione novos itens ou ajuste as datas conforme necessário.
- */
+// Campos não-traduzíveis. Texto (role, location, bullets) está em data/translations.ts.
 export const EXPERIENCIAS = [
-  {
-    company: 'Freelancer',
-    role: 'Full‑Stack Developer',
-    period: '2023 — hoje',
-    location: 'Portugal (remoto)',
-    bullets: [
-      'Entrego MVPs em 4–8 semanas com foco em métricas de negócio.',
-      'Arquitetura escalável, testes e monitorização desde o dia 1.',
-    ],
-  },
-
-] as const;
-
-/*
-  {
-    company: 'Projeto Pessoal',
-    role: "Autor – 'A Virada de Chave'",
-    period: '2025',
-    location: 'PT/BR',
-    bullets: [
-      'Conteúdo sobre mentalidade, tecnologia e carreira para devs.',
-    ],
-  },
-*/
+  { company: 'Marcaí (Laura SaaS Agenda)', period: '2024 — Presente' },
+  { company: 'Roca Group',                 period: 'Set 2018 — Mar 2026' },
+  { company: 'Metso Mining Brasil',        period: '2015 — 2016' },
+  { company: 'Pretoeng Consulting',        period: '2014' },
+] as const

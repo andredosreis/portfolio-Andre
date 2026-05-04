@@ -1,50 +1,47 @@
-/*
- * Lista de skills organizada por categoria.
- *
- * Cada categoria (Linguagens, Frontend, Backend, etc.) contém um array de objetos
- * com `name` e `icon`. A propriedade `icon` deve apontar para um arquivo de ícone
- * dentro de `public/icons/`. Todos os ícones foram gerados automaticamente em
- * `public/icons` como placeholders (pequenos círculos cianos com abreviações).
- *
- * Para adicionar ou remover skills, basta editar os arrays abaixo. Se adicionar
- * uma nova tecnologia, crie um ícone correspondente em `public/icons/` ou
- * altere a propriedade `icon` para apontar para uma imagem sua.
- */
 export type Skill = { name: string; icon: string }
 
 export const SKILLS: Record<string, readonly Skill[]> = {
-  // Linguagens de programação e consulta de dados
   Linguagens: [
     { name: 'TypeScript', icon: '/icons/typescript.png' },
     { name: 'JavaScript', icon: '/icons/javascript.png' },
-    { name: 'SQL',        icon: '/icons/sql.png' },
     { name: 'Python',     icon: '/icons/python.png' },
+    { name: 'SQL',        icon: '/icons/sql.png' },
   ],
-  // Bibliotecas e frameworks de frontend
   Frontend: [
-    { name: 'React',     icon: '/icons/react.png' },
-    { name: 'Next.js',   icon: '/icons/nextjs.png' },
-    { name: 'Tailwind',  icon: '/icons/tailwind.png' },
-   
+    { name: 'React',    icon: '/icons/react.png' },
+    { name: 'Next.js',  icon: '/icons/nextjs.png' },
+    { name: 'Tailwind', icon: '/icons/tailwind.png' },
+    { name: 'Vite',     icon: '/icons/react.png' },
+    { name: 'PWA',      icon: '/icons/react.png' },
   ],
-  // Ferramentas e frameworks de backend
   Backend: [
-    { name: 'Node.js',     icon: '/icons/nodejs.png' },
-    { name: 'Express',     icon: '/icons/express.png' },
-    { name: 'MongoDB',     icon: '/icons/mongodb.png' },
-    { name: 'PostgreSQL',  icon: '/icons/postgresql.png' },
+    { name: 'Node.js',  icon: '/icons/nodejs.png' },
+    { name: 'Express',  icon: '/icons/express.png' },
+    { name: 'Zod',      icon: '/icons/typescript.png' },
+    { name: 'JWT',      icon: '/icons/nodejs.png' },
+    { name: 'Sentry',   icon: '/icons/javascript.png' },
+    { name: 'Pino',     icon: '/icons/nodejs.png' },
   ],
-  // Serviços e ferramentas de devops/deploy
+  'Base de Dados': [
+    { name: 'MongoDB',    icon: '/icons/mongodb.png' },
+    { name: 'PostgreSQL', icon: '/icons/postgresql.png' },
+    { name: 'Supabase',   icon: '/icons/postgresql.png' },
+  ],
+  'IA & LLM': [
+    { name: 'OpenAI',    icon: '/icons/openai.png' },
+    { name: 'LangGraph', icon: '/icons/openai.png' },
+    { name: 'CrewAI',    icon: '/icons/openai.png' },
+    { name: 'n8n',       icon: '/icons/n8n.png' },
+    { name: 'RAG',       icon: '/icons/rag.png' },
+  ],
   DevOps: [
-    { name: 'Docker', icon: '/icons/docker.png' },
-    { name: 'Vercel', icon: '/icons/vercel.png' },
-    
+    { name: 'Docker',         icon: '/icons/docker.png' },
+    { name: 'GitHub Actions', icon: '/icons/vercel.png' },
+    { name: 'Vercel',         icon: '/icons/vercel.png' },
   ],
-  // Inteligência Artificial e automações
-  IA: [
-    { name: 'OpenAI',  icon: '/icons/openai.png' },
-    { name: 'n8n',     icon: '/icons/n8n.png' },
-    { name: 'RAG',     icon: '/icons/rag.png' },
-    { name: 'Vetores', icon: '/icons/vetores.png' },
+  Mensageria: [
+    { name: 'Evolution API', icon: '/icons/n8n.png' },
+    { name: 'Z-API',         icon: '/icons/n8n.png' },
+    { name: 'WhatsApp',      icon: '/icons/n8n.png' },
   ],
-} as const;
+} as const

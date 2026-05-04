@@ -1,27 +1,27 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ArrowRight, Download, Globe, Github, Linkedin, Mail, MapPin, Phone, Sun, Moon, ExternalLink, Sparkles,Instagram } from 'lucide-react'
+import { ArrowRight, Download, Globe, Github, Linkedin, Mail, MapPin, Phone, Sun, Moon, ExternalLink, Sparkles, Instagram } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-// Importa os dados da pasta `data/`. Edite esses ficheiros para alterar o conteúdo
-// do seu portfólio sem precisar mexer no código dos componentes. Veja
-// `/data/site.ts`, `/data/projects.ts`, `/data/experiences.ts` e `/data/skills.ts`.
 import { SITE } from '@/data/site'
 import { PROJETOS } from '@/data/projects'
 import { EXPERIENCIAS } from '@/data/experiences'
 import { SKILLS } from '@/data/skills'
+import { translations, type TranslatedProject, type TranslatedExperience } from '@/data/translations'
+import { useLanguage } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import  Image  from 'next/image'
+import Image from 'next/image'
 
 function Section({ id, title, description, children }: { id: string; title: string; description?: string; children: React.ReactNode }) {
   return (
     <section id={id} className="scroll-mt-24 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4">
         <div className="mb-10 flex items-end justify-between">
-          <div><h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>{description && <p className="mt-2 max-w-2xl text-muted-foreground">{description}</p>}</div>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
+            {description && <p className="mt-2 max-w-2xl text-muted-foreground">{description}</p>}
+          </div>
           <Sparkles className="h-6 w-6 opacity-30" />
         </div>
         {children}
@@ -31,31 +31,34 @@ function Section({ id, title, description, children }: { id: string; title: stri
 }
 
 function ThemeToggle() {
-  // Estado booleano que define se o tema está escuro. A leitura inicial
-  // verifica `localStorage` e assume escuro por padrão caso não exista.
-  const [dark, setDark] = useState<boolean>(() => true)
+  const [dark, setDark] = useState<boolean>(true)
   useEffect(() => {
-    // Ao mudar o estado, adiciona ou remove a classe `dark` do root
     const root = document.documentElement
     if (dark) root.classList.add('dark')
     else root.classList.remove('dark')
-    // Persiste a escolha no armazenamento local
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
   useEffect(() => {
-    // Recupera preferência guardada ao carregar a página
     const saved = localStorage.getItem('theme')
     if (saved) setDark(saved === 'dark')
   }, [])
   return (
+    <Button variant="outline" size="icon" aria-label="Alternar tema" onClick={() => setDark(!dark)}>
+      {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+    </Button>
+  )
+}
+
+function LangToggle() {
+  const { lang, setLang } = useLanguage()
+  return (
     <Button
       variant="outline"
       size="icon"
-      aria-label="Alternar tema"
-      onClick={() => setDark(!dark)}
+      aria-label="Switch language"
+      onClick={() => setLang(lang === 'pt' ? 'en' : 'pt')}
     >
-      {/* Ícone muda conforme o tema actual */}
-      {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      <span className="text-xs font-bold tracking-wider">{lang.toUpperCase()}</span>
     </Button>
   )
 }
@@ -72,33 +75,38 @@ function Socials({ className = '' }: { className?: string }) {
 }
 
 function Header() {
+  const { lang } = useLanguage()
+  const t = translations[lang]
   const NAV = [
-    { href: '#sobre', label: 'Sobre' },
-    { href: '#projetos', label: 'Projetos' },
-    { href: '/futuros', label: 'Projetos Em Desenovimento' },
-   //  { href: '/faculdade', label: 'Projetos Faculdade' },
-    { href: '#experiencia', label: 'Experiência' },
-    //{href: '#parceiros', label: 'Parceiros' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#contato', label: 'Contacto' },
-   
+    { href: '#sobre',       label: t.nav.sobre },
+    { href: '#projetos',    label: t.nav.projetos },
+    { href: '/futuros',     label: t.nav.futuros },
+    { href: '#experiencia', label: t.nav.experiencia },
+    { href: '#skills',      label: t.nav.skills },
+    { href: '#contato',     label: t.nav.contato },
   ]
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        {/*
-          Logo/nome no cabeçalho. Pode substituir {SITE.name} por uma imagem
-          `<img src="/logo.svg" … />` ou outro componente.
-        */}
         <a href="#inicio" className="font-bold tracking-tight">{SITE.name}</a>
-        <nav className="hidden gap-6 md:flex">{NAV.map((item) => (<a key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground">{item.label}</a>))}</nav>
-        <div className="flex items-center gap-2"><ThemeToggle /><Button asChild><a href="#contato">Fale comigo</a></Button></div>
+        <nav className="hidden gap-6 md:flex">
+          {NAV.map((item) => (
+            <a key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground">{item.label}</a>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <LangToggle />
+          <ThemeToggle />
+          <Button asChild><a href="#contato">{t.nav.cta}</a></Button>
+        </div>
       </div>
     </header>
   )
 }
 
 function Hero() {
+  const { lang } = useLanguage()
+  const t = translations[lang]
   return (
     <section id="inicio" className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-40 [background:radial-gradient(1200px_600px_at_50%_-20%,hsl(var(--primary)_/_0.25),transparent)]" />
@@ -106,11 +114,10 @@ function Hero() {
         <div>
           <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl font-bold leading-tight sm:text-5xl">{SITE.name}</motion.h1>
           <p className="mt-3 text-xl text-muted-foreground">{SITE.role}</p>
-          <p className="mt-4 max-w-xl text-muted-foreground">{SITE.tagline}</p>
+          <p className="mt-4 max-w-xl text-muted-foreground">{t.hero.tagline}</p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Button asChild><a href="#projetos">Ver projetos <ArrowRight className="ml-2 h-4 w-4" /></a></Button>
-            <Button variant="outline" asChild><a href="/cv-andre.pdf" download><Download className="mr-2 h-4 w-4" /> Download CV</a></Button>
-            
+            <Button asChild><a href="#projetos">{t.hero.cta} <ArrowRight className="ml-2 h-4 w-4" /></a></Button>
+            <Button variant="outline" asChild><a href="/cv-andre.pdf" download><Download className="mr-2 h-4 w-4" />{t.hero.download}</a></Button>
             <Socials />
           </div>
           <div className="mt-6 flex items-center gap-4 text-sm text-muted-foreground">
@@ -125,26 +132,53 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border shadow-sm"
         >
-          {/*
-            Imagem de capa do herói. Por padrão usamos a sua foto (public/hero.webp).
-            Pode alterar para qualquer imagem local em `/public` ou uma URL externa
-            (lembre-se de configurar `next.config.js` para domínios externos).
-          */}
-          <Image
-            src="/hero.webp"
-            alt="Foto do proprietário do portfólio"
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover"
-            priority
-          />
+          <Image src="/hero.webp" alt="Foto do proprietário do portfólio" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" priority />
         </motion.div>
       </div>
     </section>
   )
 }
 
-function ProjetoCard({ p }: { p: (typeof PROJETOS)[number] }) {
+function AboutContent({ lang }: { lang: 'pt' | 'en' }) {
+  if (lang === 'en') {
+    return (
+      <div className="prose dark:prose-invert">
+        <p>
+          Full Stack Software Engineer specialised in multi-tenant SaaS systems, AI automation, and systems integration.
+          Founder and sole engineer of <strong>Marcaí</strong> — a production SaaS for the aesthetics/health sector,
+          featuring a WhatsApp chatbot (Two-Tier LLM), PWA, CI/CD, and full architecture built from scratch.
+        </p>
+        <p>
+          Driven by formal technical documentation: PRD, HLD, FDD, and ADRs. Currently studying:{' '}
+          <strong>MBA in Software Engineering with AI</strong> at <strong>Full Cycle</strong> and{' '}
+          <strong>Bachelor&apos;s in Applied Technology</strong> at <strong>BYU–Idaho</strong>.
+          Based in <strong>{SITE.location}</strong>, available for remote projects.
+        </p>
+      </div>
+    )
+  }
+  return (
+    <div className="prose dark:prose-invert">
+      <p>
+        Engenheiro de Software Full Stack especializado em sistemas SaaS multi-tenant,
+        automação com IA e integração de sistemas. Fundador e único engenheiro do{' '}
+        <strong>Marcaí</strong> — SaaS em produção para o sector de estética/saúde,
+        com chatbot WhatsApp (Two-Tier LLM), PWA, CI/CD e arquitectura completa do zero.
+      </p>
+      <p>
+        Trabalho orientado por documentação técnica formal: PRD, HLD, FDD e ADRs.
+        Formação em curso:{' '}
+        <strong>MBA em Engenharia de Software com IA</strong> pela{' '}
+        <strong>Full Cycle</strong> e{' '}
+        <strong>Bachelor&apos;s em Applied Technology</strong> pela{' '}
+        <strong>BYU–Idaho</strong>. Baseado em <strong>{SITE.location}</strong>,
+        disponível para projectos remotos.
+      </p>
+    </div>
+  )
+}
+
+function ProjetoCard({ p, t }: { p: (typeof PROJETOS)[number]; t: TranslatedProject }) {
   return (
     <Card className="group overflow-hidden">
       <div className="relative aspect-video w-full overflow-hidden">
@@ -167,46 +201,50 @@ function ProjetoCard({ p }: { p: (typeof PROJETOS)[number] }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-muted-foreground">{p.summary}</p>
-        <div className="flex flex-wrap gap-2">{p.tags.map((t) => (<Badge key={t} variant="secondary" className="rounded-full">{t}</Badge>))}</div>
-        {p.metrics?.length ? (<ul className="mt-2 grid gap-1 text-sm">{p.metrics.map((m) => (<li key={m} className="text-emerald-400">• {m}</li>))}</ul>) : null}
+        <p className="text-muted-foreground">{t.summary}</p>
+        <div className="flex flex-wrap gap-2">
+          {p.tags.map((tag) => (<Badge key={tag} variant="secondary" className="rounded-full">{tag}</Badge>))}
+        </div>
+        {t.metrics.length > 0 && (
+          <ul className="mt-2 grid gap-1 text-sm">
+            {t.metrics.map((m) => (<li key={m} className="text-emerald-400">• {m}</li>))}
+          </ul>
+        )}
       </CardContent>
     </Card>
   )
 }
 
-function ExperienciaItem({ item }: { item: (typeof EXPERIENCIAS)[number] }) {
+function ExperienciaItem({ item, t }: { item: (typeof EXPERIENCIAS)[number]; t: TranslatedExperience }) {
   return (
     <li className="relative pl-6">
       <div className="absolute left-0 top-1.5 h-3 w-3 rounded-full bg-primary" />
-      <div className="flex flex-wrap items-baseline gap-x-2"><h3 className="font-semibold">{item.role}</h3><span className="text-muted-foreground">@ {item.company} • {item.period}</span></div>
-      <div className="text-xs text-muted-foreground">{item.location}</div>
-      <ul className="mt-2 grid gap-1 text-sm">{item.bullets.map((b, i) => (<li key={i}>• {b}</li>))}</ul>
+      <div className="flex flex-wrap items-baseline gap-x-2">
+        <h3 className="font-semibold">{t.role}</h3>
+        <span className="text-muted-foreground">@ {item.company} • {item.period}</span>
+      </div>
+      <div className="text-xs text-muted-foreground">{t.location}</div>
+      <ul className="mt-2 grid gap-1 text-sm">
+        {t.bullets.map((b, i) => (<li key={i}>• {b}</li>))}
+      </ul>
     </li>
   )
 }
 
 function SkillsList() {
+  const { lang } = useLanguage()
+  const t = translations[lang]
   return (
     <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
       {Object.entries(SKILLS).map(([categoria, lista]) => (
         <Card key={categoria}>
           <CardHeader>
-            <CardTitle className="text-base">{categoria}</CardTitle>
+            <CardTitle className="text-base">{t.skillCategories[categoria] ?? categoria}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
             {lista.map((skill) => (
-              <span
-                key={skill.name}
-                className="inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs"
-              >
-                {/* ícone do skill. Substitua o caminho caso use outra imagem */}
-                <img
-                  src={skill.icon}
-                  alt={skill.name}
-                  className="h-4 w-4"
-                  loading="lazy"
-                />
+              <span key={skill.name} className="inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs">
+                <img src={skill.icon} alt={skill.name} className="h-4 w-4" loading="lazy" />
                 {skill.name}
               </span>
             ))}
@@ -218,81 +256,52 @@ function SkillsList() {
 }
 
 function Contato() {
-  // ✅ seu e-mail vem de /data/site.ts (garanta que está como andredosreis@gmail.com)
+  const { lang } = useLanguage()
+  const t = translations[lang]
   const to = SITE.email
-
-  // ✅ texto do assunto e corpo do e-mail (edite como quiser)
-  const subjectRaw = 'Olá, Como podemos ajudar-te?' // <- edite aqui
-  const bodyRaw    = 'Conte-me um pouco como podemos ajudar-te aqui' // <- edite aqui
-
-  // ⚙️ codificação para URL
-  const subject = encodeURIComponent(subjectRaw)
-  const body    = encodeURIComponent(bodyRaw)
-
-  // 📮 GMAIL (compose no navegador) e fallback MAILTO
+  const subject = encodeURIComponent(t.contact.emailSubject)
+  const body    = encodeURIComponent(t.contact.emailBody)
   const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${subject}&body=${body}`
   const mailto    = `mailto:${to}?subject=${subject}&body=${body}`
+  const waLink    = `https://wa.me/message/JSQGFMRD36PGE1?text=${encodeURIComponent(t.contact.waMessage)}`
 
   return (
     <div className="grid gap-8 md:grid-cols-2">
       <Card>
-        <CardHeader><CardTitle>Vamos conversar</CardTitle></CardHeader>
+        <CardHeader><CardTitle>{t.contact.cardTitle}</CardTitle></CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-muted-foreground">
-            Descreva rapidamente qual desafio ou problema está a enfrentar. Eu respondo em até 24h úteis.
-          </p>
-
-          {/* aqui o form é apenas ilustrativo; não envia sozinho */}
-          <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-            <div className="flex gap-2">
-              {/* 🔵 abre o Gmail do usuário já com To/Assunto/Corpo */}
-              <Button asChild>
-                <a href={gmailLink} target="_blank" rel="noreferrer">Enviar via Gmail</a>
-              </Button>
-
-              {/* 📨 alternativa universal: abre o cliente padrão (mailto) */}
-              <Button variant="outline" asChild>
-                <a href={mailto}>Enviar via e-mail</a>
-              </Button>
-
-              {/* 🟢 WhatsApp — remova o espaço antes de https e edite a mensagem se quiser */}
-              <Button variant="outline" asChild>
-                <a
-                  href={`https://wa.me/message/JSQGFMRD36PGE1?text=${encodeURIComponent(
-                    'Olá André! Eu gostaria de saber mais sobre os seus serviços. Poderia ajudar-me?',
-                  )}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  WhatsApp
-                </a>
-              </Button>
-            </div>
-          </form>
+          <p className="text-muted-foreground">{t.contact.cardDesc}</p>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild><a href={gmailLink} target="_blank" rel="noreferrer">{t.contact.gmail}</a></Button>
+            <Button variant="outline" asChild><a href={mailto}>{t.contact.mailto}</a></Button>
+            <Button variant="outline" asChild><a href={waLink} target="_blank" rel="noreferrer">{t.contact.whatsapp}</a></Button>
+          </div>
         </CardContent>
       </Card>
-
       <Card>
-        <CardHeader><CardTitle>Perguntas frequentes</CardTitle></CardHeader>
+        <CardHeader><CardTitle>{t.contact.faqTitle}</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm text-muted-foreground">
-          <p><strong>Prazos</strong>: MVPs entre 4–8 semanas, conforme escopo.</p>
-          <p><strong>Stack</strong>: React/Next, Python, Node, DB relacional ou NoSQL, integrações.</p>
-          <p><strong>Contrato</strong>: proposta + cronograma + milestones.</p>
+          {t.contact.faq.map((item) => (
+            <p key={item.label}><strong>{item.label}</strong>: {item.value}</p>
+          ))}
         </CardContent>
       </Card>
     </div>
   )
 }
 
-
 export default function Page() {
+  const { lang } = useLanguage()
+  const t = translations[lang]
+
   useEffect(() => {
     document.title = `${SITE.name} — ${SITE.role}`
     const metaDesc = document.querySelector('meta[name="description"]')
-    const content = `${SITE.tagline} Localização: ${SITE.location}.`
+    const content = `${SITE.tagline} ${SITE.location}.`
     if (metaDesc) metaDesc.setAttribute('content', content)
     else { const m = document.createElement('meta'); m.name = 'description'; m.content = content; document.head.appendChild(m) }
-  }, [])
+  }, [lang])
+
   const jsonLd = useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -300,41 +309,37 @@ export default function Page() {
     sameAs: [SITE.socials.github, SITE.socials.linkedin], knowsAbout: SITE.keywords,
     address: { '@type': 'PostalAddress', addressLocality: SITE.location },
   }), [])
+
+  const tp = t.projects as unknown as TranslatedProject[]
+  const te = t.experiences as unknown as TranslatedExperience[]
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Header /><Hero />
-      <Section id="sobre" title="Sobre mim" description="Rápido resumo de quem eu sou e como posso ajudar o seu negócio.">
-        <div className="prose prose-invert">
-          <p>
-            Engenheiro de software full-stack. Entrego páginas e sistemas com IA e
-            análise de dados sob medida — simples, direto e com foco em resultado.
-            Trabalho orientado por métricas (conversão, retenção, performance) e ciclos
-            curtos de entrega.
-          </p>
-          <p>
-            Formação em andamento: <strong>BYU (Brigham Young University)</strong> e
-            <strong> MBA em Engenharia de Software com IA</strong> pela <strong>Full Cycle</strong>.
-            Baseado em <strong>{SITE.location}</strong>, atuo remotamente com empresas de
-            diferentes mercados.
-          </p>
+      <Header />
+      <Hero />
+      <Section id="sobre" title={t.sections.sobre.title} description={t.sections.sobre.desc}>
+        <AboutContent lang={lang} />
+      </Section>
+      <Section id="projetos" title={t.sections.projetos.title} description={t.sections.projetos.desc}>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {PROJETOS.map((p, i) => <ProjetoCard key={p.title} p={p} t={tp[i]!} />)}
         </div>
       </Section>
-      <Section id="projetos" title="Projetos em destaque" description="Estudos de caso curtos com impacto de negócio.">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{PROJETOS.map((p) => (<ProjetoCard key={p.title} p={p} />))}</div>
+      <Section id="experiencia" title={t.sections.experiencia.title} description={t.sections.experiencia.desc}>
+        <ol className="relative space-y-6 border-l pl-6">
+          {EXPERIENCIAS.map((item, i) => <ExperienciaItem key={item.company + item.period} item={item} t={te[i]!} />)}
+        </ol>
       </Section>
-      <Section id="experiencia" title="Experiência" description="Onde atuei e no que entreguei.">
-        <ol className="relative space-y-6 border-l pl-6">{EXPERIENCIAS.map((item) => (<ExperienciaItem key={item.company + item.period} item={item} />))}</ol>
-      </Section>
-      <Section id="skills" title="Skills" description="Tecnologias e competências que uso no dia a dia.">
+      <Section id="skills" title={t.sections.skills.title} description={t.sections.skills.desc}>
         <SkillsList />
       </Section>
-      <Section id="contato" title="Contacto" description="Quer tirar uma ideia do papel? Vamos falar.">
+      <Section id="contato" title={t.sections.contato.title} description={t.sections.contato.desc}>
         <Contato />
       </Section>
       <footer className="border-t py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 sm:flex-row">
-          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} {SITE.name}. Todos os direitos reservados.</p>
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} {SITE.name}. {t.footer.rights}</p>
           <Socials />
         </div>
       </footer>
