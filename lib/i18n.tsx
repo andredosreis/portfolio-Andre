@@ -15,6 +15,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('lang')
+    // Ler a preferência persistida no mount é intencional e SSR-safe (localStorage não existe no render do servidor).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (saved === 'pt' || saved === 'en') setLangState(saved)
   }, [])
 

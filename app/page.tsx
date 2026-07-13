@@ -40,6 +40,8 @@ function ThemeToggle() {
   }, [dark])
   useEffect(() => {
     const saved = localStorage.getItem('theme')
+    // Ler a preferência persistida no mount é intencional e SSR-safe (localStorage não existe no render do servidor).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (saved) setDark(saved === 'dark')
   }, [])
   return (
